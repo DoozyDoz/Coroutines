@@ -7,4 +7,5 @@
 - Dispatchers given extra info to the context in which the coroutine runs
 - Main dispature will run on the main thread, IO will do IO operations and network calls, Unconfined and Default(very long operations and tasks)
 - withContext(Dispatcher.Main) will help us switch between threads for a particular coroutine
-- a delay() in runBlocking() context will block the main thread but not in Dispatchers.Main context 
+- a delay() in runBlocking() context will block the main thread but not in Dispatchers.Main context
+- runBlocking will only Affect the main thread, other coroutine scopes launched inside it will run normally(Asyncronously) 

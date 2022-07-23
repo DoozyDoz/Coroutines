@@ -14,9 +14,17 @@ class MainActivity : AppCompatActivity() {
 
         Log.d(TAG, "Before RunBlocking")
         runBlocking {
-            Log.d(TAG, "Before delay RunBlocking")
-            delay(5000L)
-            Log.d(TAG, "After delay RunBlocking")
+            launch(Dispatchers.IO) {
+                delay(3000L)
+                Log.d(TAG, "Scope 1")
+            }
+            launch(Dispatchers.IO) {
+                delay(3000L)
+                Log.d(TAG, "Scope 2")
+            }
+//            Log.d(TAG, "Before delay RunBlocking")
+//            delay(5000L)
+//            Log.d(TAG, "After delay RunBlocking")
         }
         Log.d(TAG, "After RunBlocking")
 
