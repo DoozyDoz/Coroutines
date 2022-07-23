@@ -12,20 +12,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        GlobalScope.launch(Dispatchers.IO) {
-            val networkCallAnswer = doNetworkCall()
-            Log.d(TAG, "Starting thread is called : ${Thread.currentThread().name}")
-            withContext(Dispatchers.Main){
-                tv_dummy.text = networkCallAnswer
-                Log.d(TAG, "Setting text in thread called : ${Thread.currentThread().name}")
-            }
+        Log.d(TAG, "Before RunBlocking")
+        runBlocking {
+            Log.d(TAG, "Before delay RunBlocking")
+            delay(5000L)
+            Log.d(TAG, "After delay RunBlocking")
         }
+        Log.d(TAG, "After RunBlocking")
+
+
     }
-
-    suspend fun doNetworkCall(): String {
-        delay(3000L)
-        return "This is the answer"
-    }
-
-
 }
+
+
