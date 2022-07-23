@@ -14,21 +14,15 @@ class MainActivity : AppCompatActivity() {
 
         val job = GlobalScope.launch(Dispatchers.Default) {
             Log.d(TAG, "Starting long running operation")
-            for (i in 30..40) {
-                if (isActive) {
-                    Log.d(TAG, "Result for i = $i : ${fib(i)}")
-                }else continue
+            withTimeout(3000L) {
+                for (i in 30..40) {
+                    if (isActive) {
+                        Log.d(TAG, "Result for i = $i : ${fib(i)}")
+                    } else continue
+                }
             }
             Log.d(TAG, "Ending long running operation")
-
         }
-
-        runBlocking {
-            delay(2000L)
-            job.cancel()
-            Log.d(TAG, "Canceled Job")
-        }
-
     }
 
     fun fib(n: Int): Long {
