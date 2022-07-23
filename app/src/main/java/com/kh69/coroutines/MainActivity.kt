@@ -3,9 +3,8 @@ package com.kh69.coroutines
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
     val TAG = "MainActivity"
@@ -13,11 +12,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        GlobalScope.launch {
+        GlobalScope.launch(Dispatchers.IO) {
             val networkCallAnswer = doNetworkCall()
-            val networkCallAnswer2 = doNetworkCall2()
-            Log.d(TAG, networkCallAnswer)
-            Log.d(TAG, networkCallAnswer2)
+            tv_dummy.text = networkCallAnswer
+//            withContext(Dispatchers.Main){
+//                tv_dummy.text = networkCallAnswer
+//            }
         }
     }
 
@@ -26,9 +26,5 @@ class MainActivity : AppCompatActivity() {
         return "This is the answer"
     }
 
-    suspend fun doNetworkCall2(): String {
-        delay(3000L)
-        return "This is the answer"
-    }
 
 }
