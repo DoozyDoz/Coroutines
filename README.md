@@ -11,3 +11,4 @@
 - runBlocking will only Affect the main thread, other coroutine scopes launched inside it will run normally(Asyncronously) 
 - Launching a coroutine always returns a `job` which can be saved in a val
 - The `job.join()` will wait for the `job` to finish.
+- `job.cancel()` will cancel the coroutine
