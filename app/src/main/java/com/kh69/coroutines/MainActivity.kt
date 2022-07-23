@@ -14,10 +14,9 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.IO) {
             val networkCallAnswer = doNetworkCall()
-            tv_dummy.text = networkCallAnswer
-//            withContext(Dispatchers.Main){
-//                tv_dummy.text = networkCallAnswer
-//            }
+            withContext(Dispatchers.Main){
+                tv_dummy.text = networkCallAnswer
+            }
         }
     }
 
