@@ -14,8 +14,10 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.IO) {
             val networkCallAnswer = doNetworkCall()
+            Log.d(TAG, "Starting thread is called : ${Thread.currentThread().name}")
             withContext(Dispatchers.Main){
                 tv_dummy.text = networkCallAnswer
+                Log.d(TAG, "Setting text in thread called : ${Thread.currentThread().name}")
             }
         }
     }
