@@ -12,22 +12,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Log.d(TAG, "Before RunBlocking")
-        runBlocking {
-            launch(Dispatchers.IO) {
-                delay(3000L)
-                Log.d(TAG, "Scope 1")
+        val job = GlobalScope.launch(Dispatchers.Default){
+            repeat(5){
+                Log.d(TAG, "Coroutine is still working")
+                delay(1000L)
             }
-            launch(Dispatchers.IO) {
-                delay(3000L)
-                Log.d(TAG, "Scope 2")
-            }
-//            Log.d(TAG, "Before delay RunBlocking")
-//            delay(5000L)
-//            Log.d(TAG, "After delay RunBlocking")
         }
-        Log.d(TAG, "After RunBlocking")
 
+        runBlocking {
+            job.join()
+            Log.d(TAG, "Main Thread is continuing")
+
+        }
 
     }
 }

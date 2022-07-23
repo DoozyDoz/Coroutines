@@ -9,3 +9,5 @@
 - withContext(Dispatcher.Main) will help us switch between threads for a particular coroutine
 - a delay() in runBlocking() context will block the main thread but not in Dispatchers.Main context
 - runBlocking will only Affect the main thread, other coroutine scopes launched inside it will run normally(Asyncronously) 
+- Launching a coroutine always returns a `job` which can be saved in a val
+- The `job.join()` will wait for the `job` to finish.
