@@ -12,3 +12,4 @@
 - Launching a coroutine always returns a `job` which can be saved in a val
 - The `job.join()` will wait for the `job` to finish.
 - `job.cancel()` will cancel the coroutine
+- sometimes if for long running jobs the coroutine continues even after its canceled to prevent this check `isActive()`
