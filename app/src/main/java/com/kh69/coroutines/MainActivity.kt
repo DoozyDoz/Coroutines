@@ -15,8 +15,14 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.IO) {
             val time = measureTimeMillis {
-                val ans1 = networkCall1()
-                val ans2 = networkCall2()
+                var ans1:String? = null
+                var ans2:String? = null
+                val jb1 = launch { ans1 = networkCall1() }
+                val jb2 = launch { ans2 = networkCall2() }
+                jb1.join()
+                jb2.join()
+                Log.d(TAG, "Request took $ans1 milliseconds" )
+                Log.d(TAG, "Request took $ans2 milliseconds" )
             }
             Log.d(TAG, "Request took $time milliseconds" )
         }
