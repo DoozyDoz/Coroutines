@@ -17,3 +17,5 @@
 - To measure the time a block takes to excute use `measureTimeMillis{}`
 - Use `launch{}` within a coroutine scope to start other coroutines(these will run asynchronously)
 - Use `async{}` to return a result from a coroutine and get the result using `Job.await`
+- Whenever your coroutine returns a result use `async{}`
+- Use `lifecycleScope` in case you want the coroutine to run as long as its activity.
