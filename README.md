@@ -14,3 +14,4 @@
 - `job.cancel()` will cancel the coroutine
 - sometimes if for long running jobs the coroutine continues even after its canceled to prevent this check `isActive()`
 - `withTimeout(3000L)` will cancel the job after 3 seconds
+- To measure the time a block takes to excute use `measureTimeMillis{}`

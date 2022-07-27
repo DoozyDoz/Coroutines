@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
+import kotlin.system.measureTimeMillis
 
 class MainActivity : AppCompatActivity() {
     val TAG = "MainActivity"
@@ -12,23 +13,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val job = GlobalScope.launch(Dispatchers.Default) {
-            Log.d(TAG, "Starting long running operation")
-            withTimeout(3000L) {
-                for (i in 30..40) {
-                    if (isActive) {
-                        Log.d(TAG, "Result for i = $i : ${fib(i)}")
-                    } else continue
-                }
+        GlobalScope.launch(Dispatchers.IO) {
+            val time = measureTimeMillis {
+                val ans1 = networkCall1()
+                val ans2 = networkCall2()
             }
-            Log.d(TAG, "Ending long running operation")
+            Log.d(TAG, "Request took $time milliseconds" )
         }
     }
-
-    fun fib(n: Int): Long {
-        return if (n == 0) 0
-        else if (n == 1) 1
-        else fib(n - 1) + fib(n - 2)
+    suspend fun networkCall1():String{
+        delay(3000L)
+        return "Answer 1"
+    }
+    suspend fun networkCall2():String{
+        delay(3000L)
+        return "Answer 2"
     }
 }
 
