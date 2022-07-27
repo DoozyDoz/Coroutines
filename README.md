@@ -19,3 +19,4 @@
 - Use `async{}` to return a result from a coroutine and get the result using `Job.await`
 - Whenever your coroutine returns a result use `async{}`
 - Use `lifecycleScope` in case you want the coroutine to run as long as its activity.
+- Dont handle exeptions in coroutines like you do for non coroutine code, use `CoroutineExceptionHandler{_,throwable-> log(..)}` instead

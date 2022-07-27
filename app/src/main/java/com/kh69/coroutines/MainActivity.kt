@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
+import java.lang.Exception
 import kotlin.system.measureTimeMillis
 
 class MainActivity : AppCompatActivity() {
@@ -13,25 +14,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        GlobalScope.launch(Dispatchers.IO) {
-            val time = measureTimeMillis {
-                val ans1 = async { networkCall1() }
-                val ans2 = async { networkCall2() }
-                Log.d(TAG, "Request took ${ans1.await()} milliseconds")
-                Log.d(TAG, "Request took ${ans2.await()} milliseconds")
-            }
-            Log.d(TAG, "Request took $time milliseconds")
+        val handler = CoroutineExceptionHandler{_,throwable->
+            Log.d(TAG, "Caught exception $throwable")
         }
-    }
 
-    suspend fun networkCall1(): String {
-        delay(3000L)
-        return "Answer 1"
-    }
-
-    suspend fun networkCall2(): String {
-        delay(3000L)
-        return "Answer 2"
+        GlobalScope.launch(handler){
+            delay(5000L)
+            throw Exception("Error")
+        }
     }
 }
 
