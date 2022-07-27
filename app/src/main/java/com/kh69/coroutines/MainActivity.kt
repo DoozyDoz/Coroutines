@@ -15,23 +15,21 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.IO) {
             val time = measureTimeMillis {
-                var ans1:String? = null
-                var ans2:String? = null
-                val jb1 = launch { ans1 = networkCall1() }
-                val jb2 = launch { ans2 = networkCall2() }
-                jb1.join()
-                jb2.join()
-                Log.d(TAG, "Request took $ans1 milliseconds" )
-                Log.d(TAG, "Request took $ans2 milliseconds" )
+                val ans1 = async { networkCall1() }
+                val ans2 = async { networkCall2() }
+                Log.d(TAG, "Request took ${ans1.await()} milliseconds")
+                Log.d(TAG, "Request took ${ans2.await()} milliseconds")
             }
-            Log.d(TAG, "Request took $time milliseconds" )
+            Log.d(TAG, "Request took $time milliseconds")
         }
     }
-    suspend fun networkCall1():String{
+
+    suspend fun networkCall1(): String {
         delay(3000L)
         return "Answer 1"
     }
-    suspend fun networkCall2():String{
+
+    suspend fun networkCall2(): String {
         delay(3000L)
         return "Answer 2"
     }

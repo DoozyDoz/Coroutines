@@ -16,3 +16,4 @@
 - `withTimeout(3000L)` will cancel the job after 3 seconds
 - To measure the time a block takes to excute use `measureTimeMillis{}`
 - Use `launch{}` within a coroutine scope to start other coroutines(these will run asynchronously)
+- Use `async{}` to return a result from a coroutine and get the result using `Job.await`
